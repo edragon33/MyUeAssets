@@ -1,91 +1,130 @@
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-  </head>
-  <body>
-    <script type="text/javascript">
-      var httpRequest;
+<html>
+<head>
+<style>
+</style>
+</head>
 
-      function getXMLHttpRequest(){
-        if (window.ActiveXObject) {
-          try { return new ActiveXObject("Msxml2.XMLHTTP"); }
-          catch(e) {
-            try { return new ActiveXObject("Microsoft.XMLHTTP"); }
-            catch(e1) { return null; }
-          }
-        }else if (window.XMLHttpRequest) {
-          return new XMLHttpRequest();
-        } else { return null; }
+
+
+<script type="text/javascript">
+
+document.addEventListener('scroll', function() {
+    var currentScrollValue = document.documentElement.scrollTop;
+    var sah = screen.availHeight;
+
+    var ani1 = 3481 + 464 - 800;// - (sah/2.0) - 405;// + 405;
+    var ani2 = ani1 + 800;// + 500;
+
+    if(currentScrollValue > ani2){
+
+      if(currentScrollValue > ani2 + 1700){
+        document.getElementById('content_image_2').src = "Toon_3_over2_Ani_6.png";
+      }else if(currentScrollValue > ani2 + 1300){
+        document.getElementById('content_image_2').src = "Toon_3_over2_Ani_5.png";
+      }else if(currentScrollValue > ani2 + 950){
+        document.getElementById('content_image_2').src = "Toon_3_over2_Ani_4.png";
+      }else if(currentScrollValue > ani2 + 800){
+        document.getElementById('content_image_2').src = "Toon_3_over2_Ani_3.png";
+      }else if(currentScrollValue > ani2 + 500){
+        document.getElementById('content_image_2').src = "Toon_3_over2_Ani_2.png";
+      }else if(currentScrollValue > ani2 + 0){
+        document.getElementById('content_image_2').src = "Toon_3_over2_Ani_1.png";
       }
 
-      function processEvent(){
-        var cell = document.getElementById("layout");
-        while ( cell.hasChildNodes() ) { cell.removeChild( cell.firstChild ); }
-
-        httpRequest = getXMLHttpRequest();
-        httpRequest.open("POST","https://script.google.com/macros/s/AKfycby3SG13lF3e6icjckHU_I7hmuuJ8cMUq_0ohnL6wZ8byHIUiI8a/exec?sheetID=1q9ka-D4MmuXIMAoD7V2te-hIr0EWaHhHzeiSqAB_ark&sheetName=Html",true);
-        httpRequest.onreadystatechange = callbackFunction;
-        httpRequest.send();
+      var num = (currentScrollValue - ani1);
+      num = parseInt(num / 300);
+      num += 1;
+      if( num <= 6){
       }
+      /*
+        //Create(" [;;;;;;] JPG " + num ,'wt_viewer');
+      if( num <= 8){
+        document.getElementById('content_image_2').src = "Toon_2_Ani_" + num +".png";
+        var padding = ((num-1)*100);
+        document.getElementById('content_image_2').style = "margin-top:"+((currentScrollValue-ani2) - 10)+"px";
+      }else{
+        document.getElementById('content_image_2').style = "margin-top:790px";
+      }*/
 
-      function callbackFunction(){
-        if(httpRequest.readyState == 1 || httpRequest.readyState == 2 || httpRequest.readyState ==3 ){
-             //화면에 작업 중 메시지 출력
-        }else if(httpRequest.readyState == 4){
-          if(httpRequest.status == 200){
-            var cateSelect = document.getElementById("comboCate");
-            var data = JSON.parse(httpRequest.responseText);
-            data.data.forEach(element => {
-              var cate = cateSelect.options[cateSelect.selectedIndex].value;
-              if(cate.length == 0){
-                Create(element.Body);
-              }
-              else if( cate.length > 0 && cate == element.Category ){
-                Create(element.Body);
-              }
-            });
-          }
-          else{
-            alert("문제 발생:" + httpRequest.status);
-          }
+    }
+    else if( currentScrollValue > ani1 ){
+      var num = (currentScrollValue - ani1);
+      num = parseInt(num / 100);
+      num += 1;
+        //Create(" [;;;;;;] JPG " + num ,'wt_viewer');
+      if( num <= 8){
+        document.getElementById('content_image_1').src = "Toon_2_Ani_" + num +".png";
+        var padding = ((num-1)*100);
+        //document.getElementById('content_image_1').style = "margin-top:"+((currentScrollValue-ani1) - 10)+"px";
+      }else{
+        //document.getElementById('content_image_1').style = "margin-top:790px";
+      }
+    }else{
+      //document.getElementById('content_image_1').style = "margin-top:-5px";
+    }
+
+        //var a = document.documentElement.scrollTop;
+        //var b = document.querySelector('html').scrollTop;
+        //    Create(a + " [;;;;;;] " + b ,'wt_viewer');
+});
+
+function loadImageEvent(element){
+    if ( element ) {
+        if( element.width && element.width > 900 ) {
+            element.width = 900;
         }
-      }
+    }
+}
 
-      function Create(html){
-        var div = document.createElement('div');
-        div.innerHTML = html;
-        var lv = document.getElementById("layout");
-        lv.appendChild( div );
-        //document.body.appendChild( div );
-      }
-    </script>
+function onClickBtn()
+{
+    var a = document.documentElement.scrollTop;
+    var b = document.querySelector('html').scrollTop;
+        Create(a + " [;;;;;;] " + b ,'wt_viewer');
+    Create(" [;;;;;;] ",'wt_viewer');
+}
 
-    <h1> My Unreal Engine Assets </h1>
-    <select id="comboCate" name="cate" >
-      <option value="" selected="selected">전체</option>
-      <option value="에픽 콘텐츠">에픽 콘텐츠</option>
-      <option value="2D 애셋">2D 애셋</option>
-      <option value="건축 시각화">건축 시각화</option>
-      <option value="머티리얼">머티리얼</option>
-      <option value="메가스캔">메가스캔</option>
-      <option value="무기">무기</option>
-      <option value="배경">배경</option>
-      <option value="블루프린트">블루프린트</option>
-      <option value="사운드 이펙트">사운드 이펙트</option>
-      <option value="소품">소품</option>
-      <option value="애니메이션">애니메이션</option>
-      <option value="음악">음악</option>
-      <option value="이펙트">이펙트</option>
-      <option value="캐릭터">캐릭터</option>
-      <option value="커뮤니티 샘플">커뮤니티 샘플</option>
-      <option value="코드 플러그인">코드 플러그인</option>
-      <option value="텍스처">텍스처</option>
-      <option value="기타">기타</option>
-    </select>
-    <button name="btn" onclick="processEvent()" > Load </button>
-    <div id="layout"></div>
-  </body>
+  function Create(html,layoutId){
+    var div = document.createElement('div');
+    div.innerHTML = html;
+    var lv = document.getElementById(layoutId);
+    lv.appendChild( div );
+  }
+</script>
+
+
+<body>
+  <center>
+  <div id="wt_viewer">
+      <div>    <img src="intro.png" style="background:#ffffff; margin-top:0px;" onload="loadImageEvent(this);"></div>
+      <div>    <img src="Toon_1.png" id="content_image_0" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);"></div>
+      <div style="background:#000000; width:690px; margin-top:-10px;">    <img src="Toon_2_Ani_1.png" id="content_image_1" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);"></div>
+      <div style="background:#000000; width:690px; margin-top:-10px;">    <img src="Toon_3_over2_Ani_1.png" id="content_image_2" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);"></div>
+      <br><br><br><br><br><br><br><br><br><br>
+      <img src="outro.png" id="content_image_0" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+      <!--
+      <div><img src="intro.png" id="content_image_0" style="background:#000000; margin-top:0px;"></div>
+      <div>    <center><img src="Toon_1.png" id="content_image_0" style="background:#000000; margin-top:0px;"></center></div>
+      <div style="margin-top:-5px;">    <center><img src="Toon_2_Ani_1.png" id="content_image_1" style="background:#000000; margin-top:0px;"></center></div>
+      <div style="margin-top:-5px;">    <center><img src="Toon_3_over1.png" id="content_image_2" style="background:#000000; margin-top:0px;"></center></div>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br>
+      <div><img src="outro.png" id="content_image_0" style="background:#000000; margin-top:0px;"></div>
+-->
+      <!--
+        <div><center><img src="Toon_1.png"></img></center></div>
+        <div><center><img src="Toon_2.png"></img></center></div>
+        <div><center><img src="1.jpg"></img></center></div>-->
+        <!--
+      <div>
+          <div style="position: absolute;">
+          </div>
+          <div style="position: absolute;">
+              <div><center><img src="2.jpg"></img></center></div>
+          </div>
+      </div>
+-->
+  </div>
+      </center>
+</body>
 </html>

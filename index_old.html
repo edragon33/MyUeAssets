@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var httpRequest;
+
+      function getXMLHttpRequest(){
+        if (window.ActiveXObject) {
+          try { return new ActiveXObject("Msxml2.XMLHTTP"); }
+          catch(e) {
+            try { return new ActiveXObject("Microsoft.XMLHTTP"); }
+            catch(e1) { return null; }
+          }
+        }else if (window.XMLHttpRequest) {
+          return new XMLHttpRequest();
+        } else { return null; }
+      }
+
+      function processEvent(){
+        var cell = document.getElementById("layout");
+        while ( cell.hasChildNodes() ) { cell.removeChild( cell.firstChild ); }
+
+        httpRequest = getXMLHttpRequest();
+        httpRequest.open("POST","https://script.google.com/macros/s/AKfycby3SG13lF3e6icjckHU_I7hmuuJ8cMUq_0ohnL6wZ8byHIUiI8a/exec?sheetID=1q9ka-D4MmuXIMAoD7V2te-hIr0EWaHhHzeiSqAB_ark&sheetName=Html",true);
+        httpRequest.onreadystatechange = callbackFunction;
+        httpRequest.send();
+      }
+
+      function callbackFunction(){
+        if(httpRequest.readyState == 1 || httpRequest.readyState == 2 || httpRequest.readyState ==3 ){
+             //화면에 작업 중 메시지 출력
+        }else if(httpRequest.readyState == 4){
+          if(httpRequest.status == 200){
+            var cateSelect = document.getElementById("comboCate");
+            var data = JSON.parse(httpRequest.responseText);
+            data.data.forEach(element => {
+              var cate = cateSelect.options[cateSelect.selectedIndex].value;
+              if(cate.length == 0){
+                Create(element.Body);
+              }
+              else if( cate.length > 0 && cate == element.Category ){
+                Create(element.Body);
+              }
+            });
+          }
+          else{
+            alert("문제 발생:" + httpRequest.status);
+          }
+        }
+      }
+
+      function Create(html){
+        var div = document.createElement('div');
+        div.innerHTML = html;
+        var lv = document.getElementById("layout");
+        lv.appendChild( div );
+        //document.body.appendChild( div );
+      }
+    </script>
+
+    <h1> My Unreal Engine Assets </h1>
+    <select id="comboCate" name="cate" >
+      <option value="" selected="selected">전체</option>
+      <option value="에픽 콘텐츠">에픽 콘텐츠</option>
+      <option value="2D 애셋">2D 애셋</option>
+      <option value="건축 시각화">건축 시각화</option>
+      <option value="머티리얼">머티리얼</option>
+      <option value="메가스캔">메가스캔</option>
+      <option value="무기">무기</option>
+      <option value="배경">배경</option>
+      <option value="블루프린트">블루프린트</option>
+      <option value="사운드 이펙트">사운드 이펙트</option>
+      <option value="소품">소품</option>
+      <option value="애니메이션">애니메이션</option>
+      <option value="음악">음악</option>
+      <option value="이펙트">이펙트</option>
+      <option value="캐릭터">캐릭터</option>
+      <option value="커뮤니티 샘플">커뮤니티 샘플</option>
+      <option value="코드 플러그인">코드 플러그인</option>
+      <option value="텍스처">텍스처</option>
+      <option value="기타">기타</option>
+    </select>
+    <button name="btn" onclick="processEvent()" > Load </button>
+    <div id="layout"></div>
+  </body>
+</html>
