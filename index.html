@@ -16,20 +16,38 @@ document.addEventListener('scroll', function() {
     var ani1 = 3481 + 464 - 800;// - (sah/2.0) - 405;// + 405;
     var ani2 = ani1 + 800;// + 500;
 
+
+    document.getElementById('content_image_1_1').style.display="none";
+    document.getElementById('content_image_1_2').style.display="none";
+    document.getElementById('content_image_1_3').style.display="none";
+    document.getElementById('content_image_1_4').style.display="none";
+    document.getElementById('content_image_1_5').style.display="none";
+    document.getElementById('content_image_1_6').style.display="none";
+    document.getElementById('content_image_1_7').style.display="none";
+    document.getElementById('content_image_1_8').style.display="none";
+
+    document.getElementById('content_image_2_1').style.display="none";
+    document.getElementById('content_image_2_2').style.display="none";
+    document.getElementById('content_image_2_3').style.display="none";
+    document.getElementById('content_image_2_4').style.display="none";
+    document.getElementById('content_image_2_5').style.display="none";
+    document.getElementById('content_image_2_6').style.display="none";
+
     if(currentScrollValue > ani2){
+      document.getElementById('content_image_1_8').style.display="";
 
       if(currentScrollValue > ani2 + 1700){
-        document.getElementById('content_image_2').src = "Toon_3_over2_Ani_6.png";
+          document.getElementById('content_image_2_6').style.display="";
       }else if(currentScrollValue > ani2 + 1300){
-        document.getElementById('content_image_2').src = "Toon_3_over2_Ani_5.png";
+          document.getElementById('content_image_2_5').style.display="";
       }else if(currentScrollValue > ani2 + 950){
-        document.getElementById('content_image_2').src = "Toon_3_over2_Ani_4.png";
+          document.getElementById('content_image_2_4').style.display="";
       }else if(currentScrollValue > ani2 + 800){
-        document.getElementById('content_image_2').src = "Toon_3_over2_Ani_3.png";
+          document.getElementById('content_image_2_3').style.display="";
       }else if(currentScrollValue > ani2 + 500){
-        document.getElementById('content_image_2').src = "Toon_3_over2_Ani_2.png";
+          document.getElementById('content_image_2_2').style.display="";
       }else if(currentScrollValue > ani2 + 0){
-        document.getElementById('content_image_2').src = "Toon_3_over2_Ani_1.png";
+          document.getElementById('content_image_2_1').style.display="";
       }
 
       var num = (currentScrollValue - ani1);
@@ -49,24 +67,24 @@ document.addEventListener('scroll', function() {
 
     }
     else if( currentScrollValue > ani1 ){
+      document.getElementById('content_image_2_1').style.display="";
       var num = (currentScrollValue - ani1);
       num = parseInt(num / 100);
       num += 1;
         //Create(" [;;;;;;] JPG " + num ,'wt_viewer');
       if( num <= 8){
-        document.getElementById('content_image_1').src = "Toon_2_Ani_" + num +".png";
-        var padding = ((num-1)*100);
+        document.getElementById("content_image_1_"+num).style.display="";
+        //document.getElementById('content_image_1').src = "Toon_2_Ani_" + num +".png";
+        //var padding = ((num-1)*100);
         //document.getElementById('content_image_1').style = "margin-top:"+((currentScrollValue-ani1) - 10)+"px";
       }else{
         //document.getElementById('content_image_1').style = "margin-top:790px";
       }
     }else{
       //document.getElementById('content_image_1').style = "margin-top:-5px";
+      document.getElementById('content_image_1_1').style.display="";
+      document.getElementById('content_image_2_1').style.display="";
     }
-
-        //var a = document.documentElement.scrollTop;
-        //var b = document.querySelector('html').scrollTop;
-        //    Create(a + " [;;;;;;] " + b ,'wt_viewer');
 });
 
 function loadImageEvent(element){
@@ -99,8 +117,28 @@ function onClickBtn()
   <div id="wt_viewer">
       <div>    <img src="intro.png" style="background:#ffffff; margin-top:0px;" onload="loadImageEvent(this);"></div>
       <div>    <img src="Toon_1.png" id="content_image_0" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);"></div>
-      <div style="background:#000000; width:690px; margin-top:-10px;">    <img src="Toon_2_Ani_1.png" id="content_image_1" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);"></div>
-      <div style="background:#000000; width:690px; margin-top:-10px;">    <img src="Toon_3_over2_Ani_1.png" id="content_image_2" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);"></div>
+      <div style="background:#000000; width:690px; margin-top:-10px;">
+            <img src="Toon_2_Ani_1.png" id="content_image_1_1" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+            <img src="Toon_2_Ani_2.png" id="content_image_1_2" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+            <img src="Toon_2_Ani_3.png" id="content_image_1_3" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+            <img src="Toon_2_Ani_4.png" id="content_image_1_4" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+            <img src="Toon_2_Ani_5.png" id="content_image_1_5" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+            <img src="Toon_2_Ani_6.png" id="content_image_1_6" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+            <img src="Toon_2_Ani_7.png" id="content_image_1_7" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+            <img src="Toon_2_Ani_8.png" id="content_image_1_8" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+      </div>
+
+
+
+
+      <div style="background:#000000; width:690px; margin-top:-10px;">
+        <img src="Toon_3_over2_Ani_1.png" id="content_image_2_1" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+        <img src="Toon_3_over2_Ani_2.png" id="content_image_2_2" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+        <img src="Toon_3_over2_Ani_3.png" id="content_image_2_3" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+        <img src="Toon_3_over2_Ani_4.png" id="content_image_2_4" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+        <img src="Toon_3_over2_Ani_5.png" id="content_image_2_5" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+        <img src="Toon_3_over2_Ani_6.png" id="content_image_2_6" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
+      </div>
       <br><br><br><br><br><br><br><br><br><br>
       <img src="outro.png" id="content_image_0" style="background:#ffffff; margin-top:0px;"  onload="loadImageEvent(this);">
       <!--
